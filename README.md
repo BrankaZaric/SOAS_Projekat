@@ -196,7 +196,9 @@
   Kredencijali 
   
   ADMIN: admin@uns.ac.rs || admin123
+  
   USER: user@uns.ac.rs || user123
+  
   OWNER:  owner@uns.ac.rs || owner123
   
   # Putanje zahteva 
@@ -219,7 +221,8 @@
   
   4. Bank Account
   
-  - USER pregleda samo svoj racun
+  USER pregleda samo svoj racun
+
     http://localhost:8765/bank-account/user
   
     http://localhost:8765/bank-accounts
