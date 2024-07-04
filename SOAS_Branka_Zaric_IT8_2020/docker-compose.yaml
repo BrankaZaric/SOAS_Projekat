@@ -1,0 +1,130 @@
+version: '3.7'
+
+services:
+  currency-exchange:
+    image: brankazaric/currency-exchange:latest
+    mem_limit: 700m
+    ports:
+      - "8000:8000"
+    networks:
+      - currency-network
+    depends_on:
+      - naming-server
+      - users-service
+    environment:
+      EUREKA.CLIENT.SERVICE-URL.DEFAULTZONE: http://naming-server:8761/eureka
+
+  currency-conversion:
+    image: brankazaric/currency-conversion:latest
+    mem_limit: 700m
+    ports:
+      - "8100:8100"
+    networks:
+      - currency-network
+    depends_on:
+      - naming-server
+      - users-service
+    environment:
+      EUREKA.CLIENT.SERVICE-URL.DEFAULTZONE: http://naming-server:8761/eureka
+  
+  crypto-wallet:
+    image: brankazaric/crypto-wallet:latest
+    mem_limit: 700m
+    ports:
+      - "8300:8300"
+    networks:
+      - currency-network
+    depends_on:
+      - naming-server
+      - users-service
+    environment:
+      EUREKA.CLIENT.SERVICE-URL.DEFAULTZONE: http://naming-server:8761/eureka
+
+  crypto-exchange:
+    image: brankazaric/crypto-exchange:latest
+    mem_limit: 700m
+    ports:
+      - "8400:8400"
+    networks:
+      - currency-network
+    depends_on:
+      - naming-server
+      - users-service
+    environment:
+      EUREKA.CLIENT.SERVICE-URL.DEFAULTZONE: http://naming-server:8761/eureka
+
+  crypto-conversion:
+    image: brankazaric/crypto-conversion:latest
+    mem_limit: 700m
+    ports:
+      - "8500:8500"
+    networks:
+      - currency-network
+    depends_on:
+      - naming-server
+      - users-service
+    environment:
+      EUREKA.CLIENT.SERVICE-URL.DEFAULTZONE: http://naming-server:8761/eureka
+
+  users-service:
+    image: brankazaric/users-service:latest
+    mem_limit: 700m
+    ports:
+      - "8770:8770"
+    networks:
+      - currency-network
+    depends_on:
+      - naming-server
+    environment:
+      EUREKA.CLIENT.SERVICE-URL.DEFAULTZONE: http://naming-server:8761/eureka    
+
+  bank-account:
+    image: brankazaric/bank-account:latest
+    mem_limit: 700m
+    ports:
+      - "8200:8200"
+    networks:
+      - currency-network
+    depends_on:
+      - naming-server
+      - users-service
+    environment:
+      EUREKA.CLIENT.SERVICE-URL.DEFAULTZONE: http://naming-server:8761/eureka  
+      
+  trade-service:
+    image: brankazaric/trade-service:latest
+    mem_limit: 700m
+    ports:
+      - "8600:8600"
+    networks:
+      - currency-network
+    depends_on:
+      - naming-server
+      - users-service
+    environment:
+      EUREKA.CLIENT.SERVICE-URL.DEFAULTZONE: http://naming-server:8761/eureka  
+
+
+  api-gateway:
+    image: brankazaric/api-gateway:latest
+    mem_limit: 700m
+    ports:
+      - "8765:8765"
+    networks:
+      - currency-network
+    depends_on:
+      - naming-server
+      - users-service
+    environment:
+      EUREKA.CLIENT.SERVICE-URL.DEFAULTZONE: http://naming-server:8761/eureka
+
+  naming-server:
+    image: brankazaric/naming-server:latest
+    mem_limit: 700m
+    ports:
+      - "8761:8761"
+    networks:
+      - currency-network        
+
+networks:
+  currency-network:
